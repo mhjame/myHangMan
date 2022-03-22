@@ -76,12 +76,15 @@ string chooseWord()
 
 void renderGame(string guessedWord, int badGuessCount)
 {
+    system("cls");
     cout << FIGURE[badGuessCount] << endl;
-    cout << guessedWord;
+    cout << guessedWord << endl;
     cout << "Number of wrong guesses: " << badGuessCount << endl;
 }
 
-string update(string guessedWord, string secretWord, char guess)
+// add "const" before string & secretWord to forbid changing secretWord
+
+void update(string& guessedWord, const string& secretWord, char guess)
 {
     for(int i = secretWord.length() - 1; i >= 0; --i)
     {
@@ -90,7 +93,6 @@ string update(string guessedWord, string secretWord, char guess)
             guessedWord[i] = guess;
         }
     }
-    return guessedWord;
 }
 
 char readAGuess()
@@ -120,7 +122,7 @@ int main()
         char guess = readAGuess();
         if(contains(secretWord, guess))
         {
-            guessedWord = update(guessedWord, secretWord, guess);
+            update(guessedWord, secretWord, guess);
         }
         else badGuessCount++;
     }while(badGuessCount < maxBadGuesses && secretWord != guessedWord);
