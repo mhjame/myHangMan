@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <cctype>
 
 using namespace std;
 
@@ -74,10 +75,11 @@ string chooseWord()
     return WORD_LIST[randomIndex];
 }
 
-void renderGame(string guessedWord, int badGuessCount)
+void renderGame(string guessedWord, int badGuessCount, string wrongGuess)
 {
     system("cls");
     cout << FIGURE[badGuessCount] << endl;
+    cout << "Some guess was wrong: " << wrongGuess << endl;
     cout << guessedWord << endl;
     cout << "Number of wrong guesses: " << badGuessCount << endl;
 }
@@ -99,7 +101,7 @@ char readAGuess()
 {
     char guess;
     cin >> guess;
-    return guess;
+    return tolower(guess);
 }
 
 bool contains(string secretWord, char guess)
@@ -113,21 +115,25 @@ string guessedWord = string(secretWord.length(), '-');
 
 int badGuessCount = 0;
 const int maxBadGuesses = 7;
+string wrongGuess = "";
 
 int main()
 {
     do
     {
-        renderGame(guessedWord, badGuessCount);
+        renderGame(guessedWord, badGuessCount, wrongGuess);
         char guess = readAGuess();
         if(contains(secretWord, guess))
         {
             update(guessedWord, secretWord, guess);
         }
-        else badGuessCount++;
+        else{
+            wrongGuess += guess;
+            badGuessCount++;
+        }
     }while(badGuessCount < maxBadGuesses && secretWord != guessedWord);
 
-    renderGame(guessedWord, badGuessCount);
+    renderGame(guessedWord, badGuessCount, wrongGuess);
     if(badGuessCount < maxBadGuesses) cout << "congratulation! You win!";
     else cout << "You lost. The correct word is " << secretWord;
 
