@@ -73,21 +73,41 @@ const string FIGURE[] = {"   -------------     \n"
                          "   |                 \n"
                          " -----               \n"};
 
+
+string toLowerCase(const string& s)
+{
+    string res = s;
+    /*
+    int sz = s.size();
+    for(int i = 0; i < sz; ++i)
+        res[i] = tolower(s[i]);*/
+    transform(s.begin(), s.end(), res.begin(), ::tolower);
+    /// nghĩa câu lệnh trên: duyệt từ đầu đến cuối s, biến đổi bằng
+    /// hàm tolower(), đặt kết quả lần lượt vào các ký tự từ đầu
+    /// của res
+    return res;
+}
 string chooseWord(const char* filename)
 {
-    cout << 1 << endl;
+    vector <string> wordList; /// khai báo vector chứa các từ sẽ đọc
     ifstream fileWord(filename);  /// mở tệp có đường dẫn như trong tham số
     if(fileWord.is_open())       /// kiểm tra mở tệp thành công
     {
         string word;
         while(fileWord >> word)    /// đọc từng từ đến khi không đọc được nữa
         {
-            cout << word << endl;  /// ghi tạm ra màn hình
+            wordList.push_back(word);  /// ghi tạm ra màn hình
         }
         fileWord.close();
     } else cout << "Error opening" << filename;
 
-    //int randomIndex = rand()%WORD_COUNT;
+    int WORD_COUNT = wordList.size();
+
+    if(WORD_COUNT > 0)
+    {
+        int randomIndex = rand()%WORD_COUNT;
+        return toLowerCase(wordList[randomIndex]);
+    }
     return "book";
 }
 
