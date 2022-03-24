@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 #include <cctype>
 #include <fstream>
+#include <thread>
+#include <chrono>
+#include <atomic>
+#include <windows.h>
 
 using namespace std;
 
@@ -146,12 +150,41 @@ bool contains(string secretWord, char guess)
     return false;
 }
 
+void displayFinalResult(bool won, const string& secretWord)
+{
+    if(won)
+    {
+        cout << "Congratulation! you win!";
+    }
+    else
+    {
+        cout << "You lost. The correct word is " << secretWord;
+    }
+}
+
+void testRunAnimation()
+{
+    int i = 0;
+    while(i < 10)
+    {
+        for(int j = 0; j < 2; ++j) cout << endl; // xóa màn hình
+        cout << i; ++i; // vẽ hình kế tiếp
+
+        Sleep(500);
+        //std::chrono::milliseconds timespan(6000);
+        //std::this_thread::sleep_for(std::chrono::milliseconds(500)); // đợi 500miligiay
+        //std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    }
+}
+
 int badGuessCount = 0;
 const int maxBadGuesses = 7;
 string wrongGuess = "";
 
 int main()
 {
+    //testRunAnimation();
+
     string secretWord = chooseWord("data.txt");
 
     if(secretWord.length() < 1)
@@ -176,7 +209,8 @@ int main()
         }
     }while(badGuessCount < maxBadGuesses && secretWord != guessedWord);
 
-    renderGame(guessedWord, badGuessCount, wrongGuess);
+    //renderGame(guessedWord, badGuessCount, wrongGuess);
+    displayFinalResult(badGuessCount < maxBadGuesses, secretWord);
     if(badGuessCount < maxBadGuesses) cout << "congratulation! You win!";
     else cout << "You lost. The correct word is " << secretWord;
 
