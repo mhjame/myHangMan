@@ -69,6 +69,86 @@ const string FIGURE[] = {"   -------------     \n"
                          "   |                 \n"
                          " -----               \n"};
 
+const string fiHangingMan[] = {
+                         "   -------------     \n"
+                         "   |         /     \n"
+                         "   |         0     \n"
+                         "   |        /|\\     \n"
+                         "   |        / \\     \n"
+                         "   |                 \n"
+                         " -----               \n",
+
+                         "   -------------     \n"
+                         "   |         |     \n"
+                         "   |         0     \n"
+                         "   |        /|\\     \n"
+                         "   |        / \\     \n"
+                         "   |                 \n"
+                         " -----               \n",
+
+                         "   -------------     \n"
+                         "   |         \\     \n"
+                         "   |         0     \n"
+                         "   |        /|\\     \n"
+                         "   |        / \\     \n"
+                         "   |                 \n"
+                         " -----               \n",
+
+                         "   -------------     \n"
+                         "   |         |     \n"
+                         "   |         0     \n"
+                         "   |        /|\\     \n"
+                         "   |        / \\     \n"
+                         "   |                 \n"
+                         " -----               \n"
+};
+
+const string fiDancingMan[]{
+
+                         "      0       \n"
+                         "     /|\\     \n"
+                         "     | |     \n",
+
+                         "      0       \n"
+                         "     /|\\     \n"
+                         "     / \\     \n",
+
+                         "     _0_      \n"
+                         "      |       \n"
+                         "     / \\     \n",
+
+                         "     \\0/     \n"
+                         "      |       \n"
+                         "     / \\     \n",
+
+                         "     _0_      \n"
+                         "      |       \n"
+                         "     / \\     \n",
+
+                         "      0       \n"
+                         "     /|\\     \n"
+                         "     / \\     \n",
+
+                         "     0        \n"
+                         "     /|\\     \n"
+                         "     / \\     \n",
+
+                         "      0       \n"
+                         "     /|\\     \n"
+                         "     / \\     \n",
+
+                         "       0       \n"
+                         "     /|\\     \n"
+                         "     / \\     \n",
+
+                         "      0       \n"
+                         "     /|\\     \n"
+                         "     / \\     \n",
+};
+
+const int countsFiDancingMan = sizeof(fiDancingMan)/sizeof(string);
+const int countsFiHangingMan = sizeof(fiHangingMan)/sizeof(string);
+
 void renderGame(string guessedWord, int badGuessCount, string wrongGuess)
 {
     system("cls");
@@ -78,37 +158,27 @@ void renderGame(string guessedWord, int badGuessCount, string wrongGuess)
     cout << "Number of wrong guesses: " << badGuessCount << endl;
 }
 
-const string& getNextHangMan()
+const string& getNextImage(const string images[], const int imageCounts)
 {
-    const static string figure[] = {"fig1", "fig2", "fig3", "fig4"};
-
-    const int numberOfFigures = sizeof(figure)/sizeof(string);
     static int currentFigure = 0; /// giữ currentFigure trong bộ nhớ
-    return figure[(currentFigure++)%numberOfFigures]; /// chuẩn bị currentFigure cho lần sau
+    return images[(currentFigure++)%imageCounts]; /// chuẩn bị currentFigure cho lần sau
 }
 
-const string& getNextDancingMan()
-{
-    const static string figure[] = {"fig1", "fig2", "fig3", "fig4"};
-
-    const int numberOfFigures = sizeof(figure)/sizeof(string);
-    static int currentFigure = 0; /// giữ currentFigure trong bộ nhớ
-    return figure[(currentFigure++)%numberOfFigures]; /// chuẩn bị currentFigure cho lần sau
-}
 void displayFinalResult(bool won, const string& secretWord)
 {
     while(true)
     {
-        for(int i = 0; i < 30; ++i) cout << endl;
+        system("cls");
+        //for(int i = 0; i < 30; ++i) cout << endl;
         if(won)
         {
-            cout << "Congratulation! you win!";
+            cout << "Congratulation! you win!" << endl;
         }
         else
         {
-            cout << "You lost. The correct word is " << secretWord;
+            cout << "You lost. The correct word is " << secretWord << endl;
         }
-        cout << (won? getNextDancingMan(): getNextHangMan());
+        cout << (won? getNextImage(fiDancingMan, countsFiDancingMan): getNextImage(fiHangingMan, countsFiHangingMan));
         Sleep(500);
     }
 }
