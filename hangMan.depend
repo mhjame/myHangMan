@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1648108843 source:d:\workspace\advanced programing\inclass\hangman\hangman.cpp
+1648110291 source:d:\workspace\advanced programing\inclass\hangman\hangman.cpp
 	<bits/stdc++.h>
 	<cctype>
 	<fstream>
@@ -9,7 +9,7 @@
 	<windows.h>
 	"draw.h"
 
-1648108401 source:d:\workspace\advanced programing\inclass\hangman\draw.cpp
+1648110528 source:d:\workspace\advanced programing\inclass\hangman\draw.cpp
 	<iostream>
 	<windows.h>
 	<thread>
