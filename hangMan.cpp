@@ -5,6 +5,7 @@
 #include <chrono>
 #include <atomic>
 #include <windows.h>
+#include "draw.h"
 
 using namespace std;
 
@@ -12,70 +13,6 @@ using namespace std;
 const char DATA_FILE[] = "data.txt";
 
 //const int WORD_COUNT = sizeof(WORD_LIST)/sizeof(string);
-
-const string FIGURE[] = {"   -------------     \n"
-                         "   |                 \n"
-                         "   |                 \n"
-                         "   |                 \n"
-                         "   |                 \n"
-                         "   |                 \n"
-                         " -----               \n",
-
-                         "   -------------     \n"
-                         "   |           |     \n"
-                         "   |                 \n"
-                         "   |                 \n"
-                         "   |                 \n"
-                         "   |                 \n"
-                         " -----               \n",
-
-                         "   -------------     \n"
-                         "   |           |     \n"
-                         "   |           0     \n"
-                         "   |                 \n"
-                         "   |                 \n"
-                         "   |                 \n"
-                         " -----               \n",
-
-                         "   -------------     \n"
-                         "   |           |     \n"
-                         "   |           0     \n"
-                         "   |           |     \n"
-                         "   |                 \n"
-                         "   |                 \n"
-                         " -----               \n",
-
-                         "   -------------     \n"
-                         "   |           |     \n"
-                         "   |           0     \n"
-                         "   |          /|     \n"
-                         "   |                 \n"
-                         "   |                 \n"
-                         " -----               \n",
-
-                         "   -------------     \n"
-                         "   |           |     \n"
-                         "   |           0     \n"
-                         "   |          /|\\     \n"
-                         "   |                 \n"
-                         "   |                 \n"
-                         " -----               \n",
-
-                         "   -------------     \n"
-                         "   |           |     \n"
-                         "   |           0     \n"
-                         "   |          /|\\     \n"
-                         "   |          /      \n"
-                         "   |                 \n"
-                         " -----               \n",
-
-                          "   -------------     \n"
-                         "   |           |     \n"
-                         "   |           0     \n"
-                         "   |          /|\\     \n"
-                         "   |          / \\     \n"
-                         "   |                 \n"
-                         " -----               \n"};
 
 
 string toLowerCase(const string& s)
@@ -115,15 +52,6 @@ string chooseWord(const char* filename)
     return "book";
 }
 
-void renderGame(string guessedWord, int badGuessCount, string wrongGuess)
-{
-    system("cls");
-    cout << FIGURE[badGuessCount] << endl;
-    cout << "Some guess was wrong: " << wrongGuess << endl;
-    cout << guessedWord << endl;
-    cout << "Number of wrong guesses: " << badGuessCount << endl;
-}
-
 // add "const" before string & secretWord to forbid changing secretWord
 
 void update(string& guessedWord, const string& secretWord, char guess)
@@ -150,18 +78,6 @@ bool contains(string secretWord, char guess)
     return false;
 }
 
-void displayFinalResult(bool won, const string& secretWord)
-{
-    if(won)
-    {
-        cout << "Congratulation! you win!";
-    }
-    else
-    {
-        cout << "You lost. The correct word is " << secretWord;
-    }
-}
-
 void testRunAnimation()
 {
     int i = 0;
@@ -183,6 +99,7 @@ string wrongGuess = "";
 
 int main()
 {
+    srand(time(0));
     //testRunAnimation();
 
     string secretWord = chooseWord("data.txt");

@@ -1,4 +1,22 @@
 # depslib dependency file v1.0
-1647927157 source:d:\workspace\advanced programing\inclass\hangman\hangman.cpp
+1648108843 source:d:\workspace\advanced programing\inclass\hangman\hangman.cpp
+	<bits/stdc++.h>
+	<cctype>
+	<fstream>
+	<thread>
+	<chrono>
+	<atomic>
+	<windows.h>
+	"draw.h"
+
+1648108401 source:d:\workspace\advanced programing\inclass\hangman\draw.cpp
+	<iostream>
+	<windows.h>
+	<thread>
+	<chrono>
+
+1648107533 d:\workspace\advanced programing\inclass\hangman\draw.h
+	<string>
+	<algorithm>
 	<bits/stdc++.h>
 
