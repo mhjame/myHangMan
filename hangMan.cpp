@@ -1,10 +1,14 @@
 #include <bits/stdc++.h>
 #include <cctype>
+#include <fstream>
 
 using namespace std;
 
-const string WORD_LIST[] = {"dog", "cat", "human"};
-const int WORD_COUNT = sizeof(WORD_LIST)/sizeof(string);
+//const string WORD_LIST[] = {"dog", "cat", "human"};
+const char DATA_FILE[] = "data.txt";
+
+//const int WORD_COUNT = sizeof(WORD_LIST)/sizeof(string);
+
 const string FIGURE[] = {"   -------------     \n"
                          "   |                 \n"
                          "   |                 \n"
@@ -69,10 +73,22 @@ const string FIGURE[] = {"   -------------     \n"
                          "   |                 \n"
                          " -----               \n"};
 
-string chooseWord()
+string chooseWord(const char* filename)
 {
-    int randomIndex = rand()%WORD_COUNT;
-    return WORD_LIST[randomIndex];
+    cout << 1 << endl;
+    ifstream fileWord(filename);  /// mở tệp có đường dẫn như trong tham số
+    if(fileWord.is_open())       /// kiểm tra mở tệp thành công
+    {
+        string word;
+        while(fileWord >> word)    /// đọc từng từ đến khi không đọc được nữa
+        {
+            cout << word << endl;  /// ghi tạm ra màn hình
+        }
+        fileWord.close();
+    } else cout << "Error opening" << filename;
+
+    //int randomIndex = rand()%WORD_COUNT;
+    return "book";
 }
 
 void renderGame(string guessedWord, int badGuessCount, string wrongGuess)
@@ -110,15 +126,22 @@ bool contains(string secretWord, char guess)
     return false;
 }
 
-string secretWord = chooseWord();
-string guessedWord = string(secretWord.length(), '-');
-
 int badGuessCount = 0;
 const int maxBadGuesses = 7;
 string wrongGuess = "";
 
 int main()
 {
+    string secretWord = chooseWord("data.txt");
+
+    if(secretWord.length() < 1)
+    {
+        cout << "Erro reading vocabulary file" << DATA_FILE;
+        return -1;
+    }
+
+    string guessedWord = string(secretWord.length(), '-');
+
     do
     {
         renderGame(guessedWord, badGuessCount, wrongGuess);
